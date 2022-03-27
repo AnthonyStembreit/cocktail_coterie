@@ -57,52 +57,55 @@ function displayDrinks(response) {
         </p>`
         j++
       }
+      //creates a template literal for the drink card
       let drinkCard = `<div style="flex-basis:30%;">
-      <div class="cocktailContainer containter" id="${i}-drink">
+        <div class="cocktailContainer containter" id="${i}-drink">
           <p class="col-lg-12 interior-box card-drinkName">${drink['strDrink']}</p>
           <img src=${drink['strDrinkThumb']} class="drinkImage" />
           <div class="interior-box card-ingred">${ingredientString}</div>
           <button id="${i}-readmore" class="readmore cocktailSearch">read more</button>
           <button id="${i}-readless" class="readless none cocktailSearch">read less</button>
           <button id="${i}-saveDrink"class="cocktailSearch">Save</button>
-      </div>
-      <div class="height-increaser">
+        </div>
+
+        <div class="height-increaser">
           <p id="${i}-decribe" class="interior-box card-direct" >${drink['strInstructions']}</p>
-      </div>
-  </div>`
-      // //creates the pieces of the drink card
-      // let drinkName = $('<h3>').text(drink['strDrink']).attr("class", "col-lg-12 interior-box card-drinkName")
-      // let drinkContain = $('<div>').attr('class', 'cocktailContainer containter');
-      // let ingredients = $('<div>').html(ingredientString).attr("class", "interior-box card-ingred");
-      // let directions = $('<p>').text(drink['strInstructions']).attr("class", "col").attr("class", "interior-box hide card-direct");
-      // let drinkImage = $('<img>').attr('src', drink['strDrinkThumb']).attr("class", "drinkImage");
-      // let saveBttn = $('<button>').text('Save').attr('class', 'cocktailSearch');
-      // let readmoreBtn = $('<button>').text('read more').attr('class', 'readmore cocktailSearch');
-      // let readlessBtn = $('<button>').text('read less').attr('class', 'readless hide cocktailSearch');
+        </div>
+      </div>`
+
       $('#drink-div').append(drinkCard);
-   
+
+      //dynamically grabs each button
       let readmoreBtn = $(`#${i}-readmore`)
       let readlessBtn = $(`#${i}-readless`)
+      //sets a boolean to stop overlapping animation
       let animated = false
       //makes the direction visible
       readmoreBtn.on('click', function (e) {
         e.preventDefault()
+        //grabs the instruction html element 
         let directions = $(this.parentElement.nextSibling.nextSibling.firstChild.nextSibling)
+        //and its container
         let animateContainer = $(this.parentElement.nextSibling.nextSibling)
+        //if there is no other animation 
         if (!animated) {
+          //then change the styles to create animation
           directions.attr("style", "top: 150px; position: relative; z-index: -15;")
           directions.addClass("animate-direct")
           let wait = 0
           animated = true
+          //interval that waits for the animation to complete
           let interval = setInterval(function () {
             wait++
             if (wait === 1) {
+              //before returning the styles back to default
               directions.attr("style", "top: 150px; z-index: unset;")
               animateContainer.attr("style", "z-index: unset;")
               clearInterval(interval)
               animated = false
             }
           }, 1000)
+          //switches the visible button
           readmoreBtn.addClass("none")
           readlessBtn.removeClass("none")
         }
@@ -111,24 +114,29 @@ function displayDrinks(response) {
       readlessBtn.on('click', function (e) {
         e.preventDefault();
         let directions = $(this.parentElement.nextSibling.nextSibling.firstChild.nextSibling)
+        //if there is no other animation 
         if (!animated) {
+          //then change the styles to create animation
           $(this.parentElement.nextSibling.nextSibling).attr("style", "z-index: -15;")
           directions.attr("style", "top: 0px; position: relative; padding-top:0px; padding-bottom:0px; z-index: -15;")
           let wait = 0
           animated = true
+          //interval that waits for the animation to complete
           let interval = setInterval(function () {
             wait++
             if (wait === 1) {
+              //before returning the styles back to default
               directions.removeClass("animate-direct")
               clearInterval(interval)
               animated = false
             }
           }, 1000)
+          //switches the visible button
           readlessBtn.addClass("none")
           readmoreBtn.removeClass("none")
         }
       })
-      
+
       //saves the drink in the db associated with the user
       $(`#${i}-saveDrink`).on('click', function () {
         $.ajax({
@@ -138,15 +146,12 @@ function displayDrinks(response) {
         });
         alert("Your drink has been saved!")
       })
-
-      // appends the pieces together and the card to the page 
-      // drinkContain.append(drinkName, drinkImage, ingredients, readmoreBtn, readlessBtn, saveBttn, directions);
-   
     }
   }
+  //gets the number of rows that will exist
   let rownum = Math.floor(response.drinks.length / 3)
-  let cardheight = $("#0-drink").height()+ 130
+  //gets the card height and compensates for margin and padding
+  let cardheight = $("#0-drink").height() + 130
+  //sets the height of drink div appropriately
   $("#drink-div").height(Math.floor(cardheight * rownum))
-  console.log(Math.floor(cardheight * rownum))
-
 }
