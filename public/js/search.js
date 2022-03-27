@@ -51,10 +51,11 @@ function displayDrinks(response) {
       let j = 1
       //only loops the number of ingrediants (instead of 20 times for every drink)
       while (drink['strMeasure' + j] !== null) {
-        ingredientString += `<p>
-        <span>${drink['strMeasure' + j]}</span> 
-        <span>${drink['strIngredient' + j]}</span>
-        </p>`
+        ingredientString += `${drink['strMeasure' + j]} ${drink['strIngredient' + j]} </br>`
+        // `<p>
+        // <span>${drink['strMeasure' + j]}</span> 
+        // <span>${drink['strIngredient' + j]}</span>
+        // </p>`
         j++
       }
       //creates a template literal for the drink card

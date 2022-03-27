@@ -178,7 +178,6 @@ nav{
     font-size: 20px;
 }
 .card-drinkName{
-    width:max-content;
     padding: 5px;
     text-align: center;
     font-size: 32px;
@@ -281,9 +280,9 @@ nav{
             .container{
                 padding:0px;
             }
-            button, input{
+            /* button, input{
                 width: -webkit-fill-available;
-            }
+            } */
     
         }
                
