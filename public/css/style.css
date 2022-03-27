@@ -6,7 +6,7 @@ body{
     font-size:18px;
     font-family: 'Libre Baskerville', serif;
 }
-.hide{
+.none{
     display:none;
 }
 h1{
@@ -154,6 +154,7 @@ nav{
     width: 42%;
     min-width: fit-content;
     max-height: min-content;
+    z-index:1;
 }
 .cocktailSearch:hover{
     background-color:#b6305a;
@@ -166,15 +167,14 @@ nav{
     border-color:#c54b6e ;
  }
 .cocktailContainer{
-    margin-bottom:30px;
-    margin-top:30px;
-    background-color:rgb(175 34 79 / 66%);
+    margin-bottom:0px;
+    background-color:rgb(197 75 110);
     padding:10px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-content: space-between;
-    width: 30%;
+    flex-basis: 30%;
     font-size: 20px;
 }
 .card-drinkName{
@@ -188,10 +188,33 @@ nav{
     min-width: 60%;
     margin-top: 5px;
 }
+.height-increaser{
+    flex-basis: 30%;
+    padding: 0px;
+    margin:0px;
+    top: -150px;
+    height: 200px;
+    position: relative;
+    z-index: -15;
+}
 .card-direct{
-    height: fit-content;
-    max-height: 150px;
+    height: 0;
+    transition: 1s ease;
+    flex-basis: 30%;
+    padding: 0px;
+    margin-top: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+    top: 0px;
     overflow: scroll;
+    position: relative;
+    background-color: rgb(182 48 90);
+}
+.animate-direct{
+    top:150px;
+    /* height: fit-content !important; */
+    height: 150px;
+    padding: 10px;
 }
 /*new party page*/
 #party-form{

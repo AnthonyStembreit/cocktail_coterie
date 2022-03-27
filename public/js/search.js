@@ -47,41 +47,90 @@ function displayDrinks(response) {
     //prevents drinks from being added that have no ingrediants
     if (drink['strMeasure' + 1]) {
       //creates the inner text for the ingrediant paragraph
-      let ingredientString = '';
+      let ingredientString = ``;
       let j = 1
       //only loops the number of ingrediants (instead of 20 times for every drink)
-      while(drink['strMeasure' + j] !== null) {
-        ingredientString += drink['strMeasure' + j] + " " + drink['strIngredient' + j];
-        ingredientString += '<br/>';
+      while (drink['strMeasure' + j] !== null) {
+        ingredientString += `<p>
+        <span>${drink['strMeasure' + j]}</span> 
+        <span>${drink['strIngredient' + j]}</span>
+        </p>`
         j++
       }
-
-      //creates the pieces of the drink card
-      let drinkName = $('<h3>').text(drink['strDrink']).attr("class", "col-lg-12 interior-box card-drinkName")
-      let drinkContain = $('<div>').attr('class', 'cocktailContainer containter');
-      let ingredients = $('<p>').html(ingredientString).attr("class", "interior-box card-ingred");
-      let directions = $('<p>').text(drink['strInstructions']).attr("class", "col").attr("class", "interior-box hide card-direct");
-      let drinkImage = $('<img>').attr('src', drink['strDrinkThumb']).attr("class", "drinkImage");
-      let saveBttn = $('<button>').text('Save').attr('class', 'cocktailSearch');
-      let readmoreBtn = $('<button>').text('read more').attr('class', 'readmore cocktailSearch');
-      let readlessBtn = $('<button>').text('read less').attr('class', 'readless hide cocktailSearch');
-      
+      let drinkCard = `<div style="flex-basis:30%;">
+      <div class="cocktailContainer containter" id="${i}-drink">
+          <p class="col-lg-12 interior-box card-drinkName">${drink['strDrink']}</p>
+          <img src=${drink['strDrinkThumb']} class="drinkImage" />
+          <div class="interior-box card-ingred">${ingredientString}</div>
+          <button id="${i}-readmore" class="readmore cocktailSearch">read more</button>
+          <button id="${i}-readless" class="readless none cocktailSearch">read less</button>
+          <button id="${i}-saveDrink"class="cocktailSearch">Save</button>
+      </div>
+      <div class="height-increaser">
+          <p id="${i}-decribe" class="interior-box card-direct" >${drink['strInstructions']}</p>
+      </div>
+  </div>`
+      // //creates the pieces of the drink card
+      // let drinkName = $('<h3>').text(drink['strDrink']).attr("class", "col-lg-12 interior-box card-drinkName")
+      // let drinkContain = $('<div>').attr('class', 'cocktailContainer containter');
+      // let ingredients = $('<div>').html(ingredientString).attr("class", "interior-box card-ingred");
+      // let directions = $('<p>').text(drink['strInstructions']).attr("class", "col").attr("class", "interior-box hide card-direct");
+      // let drinkImage = $('<img>').attr('src', drink['strDrinkThumb']).attr("class", "drinkImage");
+      // let saveBttn = $('<button>').text('Save').attr('class', 'cocktailSearch');
+      // let readmoreBtn = $('<button>').text('read more').attr('class', 'readmore cocktailSearch');
+      // let readlessBtn = $('<button>').text('read less').attr('class', 'readless hide cocktailSearch');
+      $('#drink-div').append(drinkCard);
+   
+      let readmoreBtn = $(`#${i}-readmore`)
+      let readlessBtn = $(`#${i}-readless`)
+      let animated = false
       //makes the direction visible
       readmoreBtn.on('click', function (e) {
         e.preventDefault()
-        directions.removeClass("hide")
-        readmoreBtn.addClass("hide")
-        readlessBtn.removeClass("hide")
+        let directions = $(this.parentElement.nextSibling.nextSibling.firstChild.nextSibling)
+        let animateContainer = $(this.parentElement.nextSibling.nextSibling)
+        if (!animated) {
+          directions.attr("style", "top: 150px; position: relative; z-index: -15;")
+          directions.addClass("animate-direct")
+          let wait = 0
+          animated = true
+          let interval = setInterval(function () {
+            wait++
+            if (wait === 1) {
+              directions.attr("style", "top: 150px; z-index: unset;")
+              animateContainer.attr("style", "z-index: unset;")
+              clearInterval(interval)
+              animated = false
+            }
+          }, 1000)
+          readmoreBtn.addClass("none")
+          readlessBtn.removeClass("none")
+        }
       })
       //hides the directions again
       readlessBtn.on('click', function (e) {
         e.preventDefault();
-        directions.addClass("hide")
-        readlessBtn.addClass("hide")
-        readmoreBtn.removeClass("hide")
+        let directions = $(this.parentElement.nextSibling.nextSibling.firstChild.nextSibling)
+        if (!animated) {
+          $(this.parentElement.nextSibling.nextSibling).attr("style", "z-index: -15;")
+          directions.attr("style", "top: 0px; position: relative; padding-top:0px; padding-bottom:0px; z-index: -15;")
+          let wait = 0
+          animated = true
+          let interval = setInterval(function () {
+            wait++
+            if (wait === 1) {
+              directions.removeClass("animate-direct")
+              clearInterval(interval)
+              animated = false
+            }
+          }, 1000)
+          readlessBtn.addClass("none")
+          readmoreBtn.removeClass("none")
+        }
       })
+      
       //saves the drink in the db associated with the user
-      saveBttn.on('click', function () {
+      $(`#${i}-saveDrink`).on('click', function () {
         $.ajax({
           type: 'POST',
           url: '/api/save-drink',
@@ -91,8 +140,13 @@ function displayDrinks(response) {
       })
 
       // appends the pieces together and the card to the page 
-      drinkContain.append(drinkName, drinkImage, ingredients, readmoreBtn, readlessBtn, saveBttn, directions);
-      $('#drink-div').append(drinkContain);
+      // drinkContain.append(drinkName, drinkImage, ingredients, readmoreBtn, readlessBtn, saveBttn, directions);
+   
     }
   }
+  let rownum = Math.floor(response.drinks.length / 3)
+  let cardheight = $("#0-drink").height()+ 130
+  $("#drink-div").height(Math.floor(cardheight * rownum))
+  console.log(Math.floor(cardheight * rownum))
+
 }
