@@ -38,7 +38,10 @@ $('#select-ingredient').on('click', function (event) {
 function displayDrinks(response) {
   // clear the old responses
   $('#drink-div').html('');
-
+  let longestDrink = {
+    ingredientLength: 0,
+    drinkIndex: ""
+  }
   // Constructing HTML containing the drink information
   for (i = 0; i < response.drinks.length; i++) {
     const drink = response.drinks[i];
@@ -49,6 +52,7 @@ function displayDrinks(response) {
       //creates the inner text for the ingrediant paragraph
       let ingredientString = ``;
       let j = 1
+      
       //only loops the number of ingrediants (instead of 20 times for every drink)
       while (drink['strMeasure' + j] !== null) {
         ingredientString += `${drink['strMeasure' + j]} ${drink['strIngredient' + j]} </br>`
@@ -57,6 +61,11 @@ function displayDrinks(response) {
         // <span>${drink['strIngredient' + j]}</span>
         // </p>`
         j++
+      }
+      console.log(j)
+      if(longestDrink.ingredientLength <j){
+        longestDrink.ingredientLength = j;
+        longestDrink.drinkIndex = i
       }
       //creates a template literal for the drink card
       let drinkCard = `<div style="flex-basis:30%;">
@@ -149,6 +158,9 @@ function displayDrinks(response) {
       })
     }
   }
+  console.log(longestDrink)
+  console.log($(`#${longestDrink.drinkIndex}-drink`).height())
+  $(".cocktailContainer").height($(`#${longestDrink.drinkIndex}-drink`).height())
   //gets the number of rows that will exist
   let rownum = Math.floor(response.drinks.length / 3)
   //gets the card height and compensates for margin and padding
