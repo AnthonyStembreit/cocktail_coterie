@@ -2,59 +2,56 @@
 <div class="container">
     <div class="row">
 
-        <div class="col-lg-12">
-            <h1 class="interior-box">Create New Party</h1>
-        </div>
-        <div class="col-lg-12">
-            <form class="interior-box">
+        <h1 class="interior-box">Create New Party</h1>
 
-                <div class="form-group">
-                    <label for="peronal-message">Email</label>
-                    <input class="form-control" id="emailId" value="{{user.email}}"/>
-                </div>
+        <form class="interior-box row">
 
-                <div class="form-group">
-                    <label for="partyName">Party Name</label>
-                    <input class="form-control" id="partyName">
-                </div>
+            <div class="form-group col-lg-6">
+                <label for="peronal-message">Your Email</label>
+                <input class="form-control" id="emailId" value="{{user.email}}" />
+            </div>
 
-                <div class="form-group">
-                    <label for="cocktailChoice">Choose your Cocktail</label>
-                    <select type="submit" class="form-control" id="cocktailChoice">
-                        {{#each usersDrinks}}
-                        <option value={{id}}>{{strDrink}}</option>
-                        {{/each}}
-                    </select>
-                </div>
+            <div class="form-group col-lg-6">
+                <label for="zoom-link">The Zoom Link</label>
+                <input type="text" class="form-control" id="zoom-link" placeholder="zoom-link" value={{user.zoom}}>
+            </div>
 
-                <div class="form-group">
-                    <label for="Date">Date</label>
-                    <input class="form-control" type="date" id="date" placeholder="  /  /  ">
-                </div>
+            <div class="form-group col-lg-6">
+                <label for="Date">Date</label>
+                <input class="form-control" type="date" id="date" placeholder="  /  /  ">
+            </div>
 
-                <div class="form-group">
-                    <label for="Date">Time</label>
-                    <input class="form-control" type="time" id="time" placeholder="  :  ">
-                </div>
+            <div class="form-group col-lg-6">
+                <label for="Date">Time</label>
+                <input class="form-control" type="time" id="time" placeholder="  :  ">
+            </div>
 
-                <div class="form-group">
-                    <label for="peronal-message">Description</label>
-                    <textarea class="form-control" id="description" rows="3"></textarea>
-                </div>
+            <div class="form-group col-lg-12">
+                <label for="partyName">Party Name</label>
+                <input class="form-control" id="partyName">
+            </div>
 
-                <div class="form-group">
-                    <label for="zoom-link">Your Zoom Link</label>
-                    <input type="text" class="form-control" id="zoom-link" placeholder="zoom-link" value={{user.zoom}}>
-                </div>
-                <button id="invitation-complete" class="btn btn-primary" data-toggle="modal"
-                    data-target="#shareModal">Send
-                    Invitations</button>
+            <div class="form-group col-lg-12">
+                <label for="cocktailChoice">Choose your Cocktail</label>
+                <select type="submit" class="form-control" id="cocktailChoice">
+                    {{#each usersDrinks}}
+                    <option value={{id}}>{{strDrink}}</option>
+                    {{/each}}
+                </select>
+            </div>
 
-                <!--look up customize share on share.com-->
+            <div class="form-group col-lg-12">
+                <label for="peronal-message">Description</label>
+                <textarea class="form-control" id="description" rows="3"></textarea>
+            </div>
 
-            </form>
-        </div>
+
+            <button id="invitation-complete" class="btn btn-primary" data-toggle="modal" data-target="#shareModal">Send
+                Invitations</button>
+        </form>
     </div>
+
+</div>
 </div>
 <div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="myModalLabel" style="display:none">
     <div class="modal-dialog  modal-lg modal-dialog-centered">

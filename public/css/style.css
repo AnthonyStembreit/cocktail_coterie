@@ -1,7 +1,10 @@
 body{
-    margin:150px;
     background-color:rgb(241 156 170);;
     margin-top:35px;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    margin-bottom:150px;
     color:white;
     font-size:18px;
     font-family: 'Libre Baskerville', serif;
@@ -15,16 +18,20 @@ h1{
 header{
     text-align: center;
     background-color: rgba(233, 126, 144, 0.822);
-    border-radius:15px;
+    border-top-left-radius:15px;
+    border-top-right-radius:15px;
     padding:10px;
+   width:80%;
 }
 nav{
     font-size:24px;
     font-weight: 700;
     background-color: rgba(233, 126, 144, 0.822);
     margin-bottom:30px;
-    border-radius: 15px;
+    width:80%;
     height: 50px;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
 }
 .navbar-nav{
     width:100%;
@@ -49,11 +56,17 @@ nav{
     text-decoration: underline;
     padding: 10px;
     margin: 5px;
+   
   }
   .developers:hover {
     color: white;
     background-color: rgba(233, 126, 144, 0.822);
     border-color: rgba(233, 126, 144, 0.822);
+  }
+  .dev-container{
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-evenly;
   }
   .dev-card {
     width: 260px;
@@ -83,6 +96,18 @@ nav{
     font-size:65px;
 }
 /*login modal styles*/
+.login{
+    display: flex;
+    flex-direction: column;
+}
+.login label{
+    margin-top: 10px;
+}
+.form-footer{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 15px;
+}
 .modal-header{
     background-color:pink;
     color:rgb(224, 100, 121);
@@ -130,6 +155,7 @@ nav{
     background-color:rgb(175 34 79 / 66%);
     border-radius: 5px;
     padding:15px;
+    width:75%;
 }
 /*global*/
 .interior-box{
@@ -138,7 +164,11 @@ nav{
     height: min-content;
 }
 /*search cocktails page */
-
+.drink-contianer{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
 #drink-div{
     display: flex;
     justify-content: space-around;
@@ -245,13 +275,29 @@ nav{
     border-radius: 4px;
     padding: 2px;
     width: 200px;
-
     height: 200px;
-      }
-
+}
+.saved{
+    margin-bottom: 30px;
+}
         @media only screen and (max-width: 930px) {
             body{
                 margin:auto;
+            }
+             .dev-container{
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+            .dev-card{
+                margin:5px;
+            }
+            header{
+               width: 90%;
+            }
+            nav{
+                width: 90%;
+                justify-content: center !important;
             }
             .navbar-nav{
                 text-align: center;
@@ -259,7 +305,9 @@ nav{
                 background-color: rgb(200 61 99 / 99%);
             }
             .navbar-collapse{
-                z-index: 1
+                z-index: 1;
+                justify-content: center;
+                display: flex
             }
             .nav-link{
                 background-color: #b72b55;
@@ -279,6 +327,12 @@ nav{
             }
             .container{
                 padding:0px;
+            }
+            .form-row{
+                flex-direction: column;
+            }
+            #registerForm{
+                width:90%;
             }
             /* button, input{
                 width: -webkit-fill-available;

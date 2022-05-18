@@ -1,27 +1,15 @@
 {{>navbar}}
+<div class="drink-contianer">
+  {{#each usersDrinks}}
 
-{{#each usersDrinks}}
-
-<div class="container">
-  <div class="row wierd">
-
-    <div class="col-lg-12">
-      <h1 class="interior-box">{{strDrink}}</h1>
-    </div>
-    <div class="row wierd">
-
-      <div class="col-lg-12">
-        <img src={{strDrinkThumb}} alt="cocktail image" class="drinkImage">
-      </div>
-
-      <div class="col-lg-12">
-        <p class="interior-box">{{strInstructions}}</p>
-      </div>
-    </div>
+  <div class="cocktailContainer container saved" style="width: 30%;">
+    <h1 class="interior-box card-drinkName">{{strDrink}}</h1>
+    <img src={{strDrinkThumb}} alt="cocktail image" class="drinkImage">
+    <p class="interior-box card-ingred">{{strInstructions}}</p>
   </div>
 
+  {{/each}}
 </div>
-{{/each}}
 <!--<button id="read-more">read more</button>
 {{ingredients}}
 <div>

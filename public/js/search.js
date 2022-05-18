@@ -55,18 +55,11 @@ function displayDrinks(response) {
       
       //only loops the number of ingrediants (instead of 20 times for every drink)
       while (drink['strMeasure' + j] !== null&&drink['strMeasure' + j]!== "") {
-       
-          
-        
+
         ingredientString += `${drink['strMeasure' + j]} ${drink['strIngredient' + j]} </br>`
-        // `<p>
-        // <span>${drink['strMeasure' + j]}</span> 
-        // <span>${drink['strIngredient' + j]}</span>
-        // </p>`
         j++
         
       }
-      console.log(j)
       if(longestDrink.ingredientLength <j){
         longestDrink.ingredientLength = j;
         longestDrink.drinkIndex = i
